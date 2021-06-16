@@ -1,15 +1,21 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import data from "./data";
 import ReactTooltip from 'react-tooltip'
+import swal from 'sweetalert';
+
+
 function App() {
   const [count, setCount] = useState(0);
   const [text, setText] = useState();
-  const ref = useRef()
+  // const ref = useRef(null)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const amount = Number(count)
     setText(data.slice(0, amount))
   };
+
+
 
   const copyMe = () => {
 
@@ -23,11 +29,14 @@ function App() {
     // // copyText.forEach((e) => e.focus())
     document.execCommand("copy");
     // alert("copied")
-    console.log(ref);
-    ReactTooltip.show(ref.current)
+    // console.log(ref);
+    // ReactTooltip.show(ref.current)
+    swal("Successfully", "Copied!", "success");
+
   }
 
-  // document.querySelector("#copy").addEventListener("click", copy);
+
+
   return (
     <section className="section-center">
       <h3>Tired of boring lorem ipsum ?</h3>
@@ -50,7 +59,7 @@ function App() {
         })}
 
       </article>
-      <p ref={ref} data-tip='Copied !' data-event='click' data-event-off='dblclick'></p>
+      {/* <p ref={ref} data-tip='Copied !' data-event='click' data-event-off='dblclick'></p> */}
       <ReactTooltip />
       {text?.length > 0 && <button className="btn" onClick={() => copyMe()}> Click Here To Copy</button>}
 
